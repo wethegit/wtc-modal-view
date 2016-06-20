@@ -11,6 +11,8 @@ Modal View
 - *Edited*          2016-03-21 12:51:01
 - *Version*         1.2
 */
+; 'use strict';
+
 (function()
 {
   var _base, _base2, _base3;
