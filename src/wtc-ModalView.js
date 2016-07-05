@@ -16,6 +16,18 @@ Modal View
 (function()
 {
   var _base, _base2, _base3;
+  
+  var __hasProp = Object.prototype.hasOwnProperty;
+  var __extends = function(child, parent)
+  {
+    for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
+    function ctor() { this.constructor = child; }
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor;
+    child.__super__ = parent.prototype;
+    return child;
+  };
+
   window.wtc || (window.wtc = {});
   (_base = window.wtc).utilities || (_base.utilities = {});
   (_base2 = window.wtc).CONST || (_base2.CONST = {});
