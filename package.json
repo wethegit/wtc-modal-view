@@ -1,0 +1,31 @@
+{
+  "name": "wtc-modal-view",
+  "version": "1.0.0",
+  "description": "A simple and agnostic modal view class.",
+  "main": "dist/wtc-modal-view.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src/es6/ --presets babel-preset-es2015 --out-dir dist",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wethegit/wtc-modal-view.git"
+  },
+  "keywords": [
+    "wtc"
+  ],
+  "author": "Marlon Ugocioni Marcello <marlon@wethecollective.com> (http://wethecollective.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wethegit/wtc-modal-view/issues"
+  },
+  "homepage": "https://github.com/wethegit/wtc-modal-view#readme",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0"
+  },
+  "dependencies": {
+    "wtc-utility-helpers": "^1.1.2"
+  }
+}
