@@ -1,8 +1,9 @@
 {
   "name": "wtc-modal-view",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple and agnostic modal view class.",
   "main": "dist/wtc-modal-view.js",
+  "style": "dist/wtc-modal-view.css",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src/es6/ --presets babel-preset-es2015 --out-dir dist",
