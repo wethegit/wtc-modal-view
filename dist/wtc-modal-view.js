@@ -202,12 +202,13 @@ var Modal = function () {
       var contentWrapper = modal.modalContent;
       var wrapper = document.createElement('div');
       var width = 784;
-      var height = width / aspect;
       var maxheight = window.innerHeight * ratio;
 
       if (width > document.body.clientWidth * ratio) {
         width = document.body.clientWidth * ratio;
       }
+
+      var height = width / aspect;
 
       if (maxheight + 100 > window.innerHeight) {
         maxheight = maxheight - 80;
