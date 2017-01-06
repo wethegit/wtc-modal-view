@@ -36,8 +36,6 @@ var Modal = function () {
    * @return {Class} Modal instance.
    */
   function Modal() {
-    var _this = this;
-
     _classCallCheck(this, Modal);
 
     if (instance) {
@@ -69,17 +67,31 @@ var Modal = function () {
     this.modal.appendChild(this.modalOverlay);
     this.modal.appendChild(this.modalWrapper);
 
-    this.modalClose.addEventListener('click', function (e) {
-      _this.close();
-    });
-
-    this.modalOverlay.addEventListener('click', function (e) {
-      _this.close();
-    });
-
     document.body.appendChild(this.modal);
 
     instance = this;
+
+    this.modalClose.addEventListener('click', function (e) {
+      Modal.close();
+    });
+
+    this.modalOverlay.addEventListener('click', function (e) {
+      Modal.close();
+    });
+
+    var hash = Modal.hash;
+    if (hash) {
+      var el = document.querySelector('[data-video-hash="' + hash + '"]');
+
+      if (el) {
+        var id = el.getAttribute('data-video');
+        Modal.openVideo({
+          videoId: id,
+          hash: hash
+        });
+      }
+    }
+
     return this;
   }
 
@@ -89,7 +101,7 @@ var Modal = function () {
    */
 
 
-  _createClass(Modal, [{
+  _createClass(Modal, null, [{
     key: 'close',
     value: function close() {
       var modal = Modal.instance;
@@ -108,6 +120,10 @@ var Modal = function () {
           modal.modalContent.innerHTML = '';
         }, 500);
 
+        if (Modal.hash) {
+          history.replaceState("", document.title, window.location.pathname);
+        }
+
         if (modal.onClose) {
           modal.onClose();
         }
@@ -117,15 +133,21 @@ var Modal = function () {
     }
 
     /**
+     * Get current url hash
+     * @return {String} hash string or null if none.
+     */
+
+  }, {
+    key: 'open',
+
+
+    /**
      * Opens modal, add content and optional class
      * @param {string|DOMNode} content       - String or DOMNode to be added to modal content.
      * @param {string}         optionalClass - Optional class to be added to modal
      *
      * @return {Class} Modal instance
      */
-
-  }], [{
-    key: 'open',
     value: function open(content, optionalClass) {
       var modal = Modal.instance;
 
@@ -201,7 +223,14 @@ var Modal = function () {
       var modal = Modal.instance;
       var contentWrapper = modal.modalContent;
       var wrapper = document.createElement('div');
-      var width = 784;
+
+      var cs = getComputedStyle(contentWrapper);
+
+      var paddingX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+      var borderX = parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
+      var elementWidth = contentWrapper.offsetWidth - paddingX - borderX;
+
+      var width = elementWidth;
       var maxheight = window.innerHeight * ratio;
 
       if (width > document.body.clientWidth * ratio) {
@@ -232,6 +261,10 @@ var Modal = function () {
       contentWrapper.appendChild(wrapper);
       var video = new nclood.Video(settings);
 
+      if (options.hash) {
+        window.location.hash = '!/' + options.hash + '/';
+      }
+
       Modal.open(null, 'modal--video');
 
       return modal;
@@ -244,6 +277,16 @@ var Modal = function () {
      * @return {Class} Modal instance
      */
 
+  }, {
+    key: 'hash',
+    get: function get() {
+      var URLhash = /#\!?\/(.+)\//i.exec(window.location.hash);
+      if (URLhash && URLhash.length > 1) {
+        return URLhash[1];
+      } else {
+        return null;
+      }
+    }
   }, {
     key: 'onOpen',
     set: function set() {
@@ -264,15 +307,7 @@ var Modal = function () {
      *
      * @return {Class} Modal instance
      */
-    ,
 
-
-    /**
-     * Getters
-     */
-    get: function get() {
-      return this.instance.onOpen;
-    }
   }, {
     key: 'onClose',
     set: function set() {
@@ -285,9 +320,6 @@ var Modal = function () {
       }
 
       return this.instance;
-    },
-    get: function get() {
-      return this.instance.onClose;
     }
   }, {
     key: 'modal',
