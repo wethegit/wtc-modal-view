@@ -65,19 +65,6 @@ class Modal {
       Modal.close();
     });
 
-    let hash = Modal.hash;
-    if (hash) {
-      let el = document.querySelector(`[data-video-hash="${hash}"]`);
-
-      if (el) {
-        let id = el.getAttribute('data-video');
-        Modal.openVideo({
-          videoId: id,
-          hash: hash
-        })
-      }
-    }
-
     return this;
   }
 

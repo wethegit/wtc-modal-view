@@ -79,19 +79,6 @@ var Modal = function () {
       Modal.close();
     });
 
-    var hash = Modal.hash;
-    if (hash) {
-      var el = document.querySelector('[data-video-hash="' + hash + '"]');
-
-      if (el) {
-        var id = el.getAttribute('data-video');
-        Modal.openVideo({
-          videoId: id,
-          hash: hash
-        });
-      }
-    }
-
     return this;
   }
 
