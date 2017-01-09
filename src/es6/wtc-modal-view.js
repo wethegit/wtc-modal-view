@@ -185,9 +185,6 @@ class Modal {
     const modal = Modal.instance;
     let contentWrapper = modal.modalContent;
     let wrapper = document.createElement('div');
-<<<<<<< HEAD
-    let width = options.width || 784;
-=======
 
     let cs = getComputedStyle(contentWrapper);
 
@@ -196,8 +193,7 @@ class Modal {
     let elementWidth = contentWrapper.offsetWidth - paddingX - borderX;
 
 
-    let width = elementWidth;
->>>>>>> efd3ba36c2d88274fb3ea32bd438181b0728e35f
+    let width = options.width || elementWidth;
     let maxheight = window.innerHeight * ratio;
 
     if (width > document.body.clientWidth * ratio) {
