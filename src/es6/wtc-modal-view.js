@@ -53,17 +53,18 @@ class Modal {
     this.modal.appendChild(this.modalOverlay);
     this.modal.appendChild(this.modalWrapper);
 
-    this.modalClose.addEventListener('click', (e) => {
-      this.close();
-    });
-
-    this.modalOverlay.addEventListener('click', (e) => {
-      this.close();
-    });
-
     document.body.appendChild(this.modal);
 
     instance = this;
+
+    this.modalClose.addEventListener('click', (e) => {
+      Modal.close();
+    });
+
+    this.modalOverlay.addEventListener('click', (e) => {
+      Modal.close();
+    });
+
     return this;
   }
 
@@ -71,7 +72,7 @@ class Modal {
    * Closes modal, removes content and optional class
    * @return {Class} Modal instance.
    */
-  close() {
+  static close() {
     const modal = Modal.instance;
 
     if(modal.state) {
@@ -88,12 +89,30 @@ class Modal {
         modal.modalContent.innerHTML = '';
       }, 500);
 
+      if (Modal.hash) {
+        history.replaceState("", document.title, window.location.pathname);
+      }
+
       if (modal.onClose) {
         modal.onClose();
       }
     }
 
     return modal;
+  }
+
+  /**
+   * Get current url hash
+   * @return {String} hash string or null if none.
+   */
+  static get hash() {
+    let URLhash = /#\!?\/(.+)\//i.exec(window.location.hash);
+    if (URLhash && URLhash.length > 1) {
+      return URLhash[1];
+    }
+    else {
+      return null;
+    }
   }
 
   /**
@@ -166,7 +185,19 @@ class Modal {
     const modal = Modal.instance;
     let contentWrapper = modal.modalContent;
     let wrapper = document.createElement('div');
+<<<<<<< HEAD
     let width = options.width || 784;
+=======
+
+    let cs = getComputedStyle(contentWrapper);
+
+    let paddingX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    let borderX = parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
+    let elementWidth = contentWrapper.offsetWidth - paddingX - borderX;
+
+
+    let width = elementWidth;
+>>>>>>> efd3ba36c2d88274fb3ea32bd438181b0728e35f
     let maxheight = window.innerHeight * ratio;
 
     if (width > document.body.clientWidth * ratio) {
@@ -196,6 +227,10 @@ class Modal {
 
     contentWrapper.appendChild(wrapper);
     var video = new nclood.Video(settings);
+
+    if (options.hash) {
+      window.location.hash = `!/${options.hash}/`;
+    }
 
     Modal.open(null, 'modal--video');
 
@@ -232,17 +267,6 @@ class Modal {
     }
 
     return this.instance;
-  }
-
-  /**
-   * Getters
-   */
-  static get onOpen(){
-    return this.instance.onOpen;
-  }
-
-  static get onClose(){
-    return this.instance.onClose;
   }
 
   static get modal(){

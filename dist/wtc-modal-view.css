@@ -1,0 +1,97 @@
+.modal
+{
+  transition: opacity 0s 0.4s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.modal.is-open
+{
+  transition-delay: 0s;
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.modal.is-open .modal__overlay,
+.modal.is-open .modal__close,
+.modal.is-open .modal__content
+{
+  opacity: 1;
+}
+
+.modal.is-open .modal__content
+{
+  transform: scale(1);
+}
+
+.modal__overlay,
+.modal__wrapper
+{
+  position: absolute;
+}
+
+.modal__overlay
+{
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+.modal__wrapper
+{
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 90%;
+  left: 50%;
+  top: 50%;
+  padding: 0 10px;
+}
+
+.modal__close
+{
+  transition: opacity 0.3s ease;
+  appearance: none;
+  margin: 0 0 10px auto;
+  display: block;
+  border: none;
+  opacity: 0;
+}
+
+.modal__close:focus,
+.modal__close:active
+{
+  outline: none;
+}
+
+.modal__content
+{
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  transform: scale(0);
+  background: white;
+  opacity: 0;
+}
+
+/* Video changes */
+.modal--video .modal__wrapper
+{
+  width: auto;
+}
+
+/* Retailer changes */
+.modal--retailer .modal__content
+{
+  padding: 40px 0;
+}
+
+.modal--retailer .modal__wrapper
+{
+  max-width: 980px;
+}
