@@ -166,7 +166,7 @@ class Modal {
     const modal = Modal.instance;
     let contentWrapper = modal.modalContent;
     let wrapper = document.createElement('div');
-    let width = 784;
+    let width = options.width || 784;
     let maxheight = window.innerHeight * ratio;
 
     if (width > document.body.clientWidth * ratio) {
