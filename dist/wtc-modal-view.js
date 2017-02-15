@@ -217,7 +217,7 @@ var Modal = function () {
       var borderX = parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
       var elementWidth = contentWrapper.offsetWidth - paddingX - borderX;
 
-      var width = elementWidth;
+      var width = options.width || elementWidth;
       var maxheight = window.innerHeight * ratio;
 
       if (width > document.body.clientWidth * ratio) {
@@ -242,6 +242,10 @@ var Modal = function () {
         autoplay: true,
         width: width,
         height: height,
+        initialBitrate: {
+          level: 1,
+          duration: 30
+        },
         chromeless: true
       }, options);
 
