@@ -218,6 +218,10 @@ class Modal {
       autoplay: true,
       width: width,
       height: height,
+      initialBitrate: {
+        level: 1,
+        duration: 30
+      },
       chromeless: true
     }, options);
 
