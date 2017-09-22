@@ -136,6 +136,8 @@ var Modal = function () {
      * @return {Class} Modal instance
      */
     value: function open(content, optionalClass) {
+      var _this = this;
+
       var modal = Modal.instance;
 
       if (!modal.state) {
@@ -168,6 +170,14 @@ var Modal = function () {
         if (modal.onOpen) {
           modal.onOpen();
         }
+
+        this.onKeyDown = function (e) {
+          if (e.keyCode == 27) {
+            Modal.close();
+            document.removeEventListener('keydown', _this.onKeyDown, false);
+          }
+        };
+        document.addEventListener('keydown', this.onKeyDown, false);
       }
 
       return modal;

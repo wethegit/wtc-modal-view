@@ -96,6 +96,7 @@ class Modal {
       if (modal.onClose) {
         modal.onClose();
       }
+      _u.fireCustomEvent('wtc-modal-close', { modal: this });
     }
 
     return modal;
@@ -163,6 +164,8 @@ class Modal {
         }
       }
       document.addEventListener('keydown', this.onKeyDown, false);
+
+      _u.fireCustomEvent('wtc-modal-open', { modal: this });
     }
 
     return modal;
