@@ -1,6 +1,10 @@
 {
   "name": "wtc-modal-view",
+<<<<<<< HEAD
   "version": "1.1.4",
+=======
+  "version": "1.1.5",
+>>>>>>> 867fefb36490ef1a3d0f85bbd873759f9f7e02d2
   "description": "A simple and agnostic modal view class.",
   "main": "dist/wtc-modal-view.js",
   "style": "dist/wtc-modal-view.css",
