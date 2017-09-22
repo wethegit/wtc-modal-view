@@ -155,6 +155,14 @@ class Modal {
       if (modal.onOpen) {
         modal.onOpen();
       }
+
+      this.onKeyDown = (e)=> {
+        if(e.keyCode == 27) {
+          Modal.close();
+          document.removeEventListener('keydown', this.onKeyDown, false);
+        }
+      }
+      document.addEventListener('keydown', this.onKeyDown, false);
     }
 
     return modal;
