@@ -46,7 +46,7 @@ var Modal = function () {
     this.modal = document.createElement('modal');
     this.modalOverlay = document.createElement('div');
     this.modalClose = document.createElement('button');
-    this.modalClose.innerHTML = 'Close';
+    this.modalClose.innerHTML = '<span>Close</span>';
     this.modalWrapper = document.createElement('div');
     this.modalContent = document.createElement('div');
     this.className = 'modal';
@@ -114,6 +114,7 @@ var Modal = function () {
         if (modal.onClose) {
           modal.onClose();
         }
+        _wtcUtilityHelpers2.default.fireCustomEvent('wtc-modal-close', { modal: this });
       }
 
       return modal;
@@ -178,6 +179,8 @@ var Modal = function () {
           }
         };
         document.addEventListener('keydown', this.onKeyDown, false);
+
+        _wtcUtilityHelpers2.default.fireCustomEvent('wtc-modal-open', { modal: this });
       }
 
       return modal;

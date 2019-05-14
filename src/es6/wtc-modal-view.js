@@ -32,7 +32,7 @@ class Modal {
     this.modal = document.createElement('modal');
     this.modalOverlay = document.createElement('div');
     this.modalClose = document.createElement('button');
-    this.modalClose.innerHTML = 'Close';
+    this.modalClose.innerHTML = '<span>Close</span>';
     this.modalWrapper = document.createElement('div');
     this.modalContent = document.createElement('div');
     this.className = 'modal';
