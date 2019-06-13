@@ -1,14 +1,14 @@
 # [wtc-modal-view](https://github.com/wethegit/wtc-modal-view#readme) *2.0.0*
 
-> A simple and agnostic modal class.
+> A simple, unopinionated modal class.
 
 
 ### src/wtc-modal-view.js
 
 
-#### instance() 
+#### new Modal() 
 
-Holds the one and only Modal instance
+A Modal class which can display programatically-generated content, or pull in content from an existing DOM node.
 
 
 
@@ -22,9 +22,26 @@ Holds the one and only Modal instance
 
 
 
-#### constructor() 
+#### Modal.constructor() 
 
-Creates base dom element.
+Creates base DOM element.
+
+
+
+
+
+
+##### Returns
+
+
+- `Class`  The Modal instance
+
+
+
+#### Modal.close() 
+
+Closes modal, removes content and optional class,
+and shifts user focus back to triggering element, if specified.
 
 
 
@@ -38,25 +55,9 @@ Creates base dom element.
 
 
 
-#### close() 
+#### open(content, optionalClass[, focusOnClose]) 
 
-Closes modal, removes content and optional class
-
-
-
-
-
-
-##### Returns
-
-
-- `Class`  Modal instance.
-
-
-
-#### open(content, optionalClass, focusOnClose) 
-
-Opens modal, add content and optional class
+Opens modal, adds content and optional CSS class
 
 
 
@@ -65,9 +66,9 @@ Opens modal, add content and optional class
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| content | `string` `DOMNode`  | - String or DOMNode to be added to modal content. | &nbsp; |
-| optionalClass | `string`  | - Optional class to be added to modal | &nbsp; |
-| focusOnClose | `HTMLElement`  | - Optional element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place. | &nbsp; |
+| content | `string` `HTMLElement`  | - String or DOMNode to be added as the modal content. | &nbsp; |
+| optionalClass | `string`  | - Optional CSS class to add to the modal element. | &nbsp; |
+| focusOnClose | `HTMLElement`  | - Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place. | *Optional* |
 
 
 
@@ -76,6 +77,22 @@ Opens modal, add content and optional class
 
 
 - `Class`  Modal instance
+
+
+
+#### focusFirstElement() 
+
+Shifts focus to the very beginning of the modal element—just before the close button.
+
+
+
+
+
+
+##### Returns
+
+
+- `Void`
 
 
 

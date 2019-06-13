@@ -1,24 +1,19 @@
-/**
- * Modal
- * Generic and static class to control a modal window.
- *
- * @static
- * @version 2.0.0
- * @created June 12, 2019
- */
-
 import _u from 'wtc-utility-helpers';
 
-/**
- * Holds the one and only Modal instance
- * @type {Class}
- */
 let instance = null;
 
+/**
+ * A Modal class which can display programatically-generated content, or pull in content from an existing DOM node.
+ *
+ * @static
+ * @author Andrew Rubin <andrew@wethecollective.com>
+ * @version 2.0.0
+ * @created June 13, 2019
+ */
 class Modal {
   /**
-   * Creates base dom element.
-   * @return {Class} Modal instance.
+   * Creates base DOM element.
+   * @returns {Class} The Modal instance
    */
   constructor() {
     if (instance) {
@@ -77,7 +72,9 @@ class Modal {
   }
 
   /**
-   * Closes modal, removes content and optional class
+   * Closes modal, removes content and optional class,
+   * and shifts user focus back to triggering element, if specified.
+   * @static
    * @return {Class} Modal instance.
    */
   static close() {
@@ -126,6 +123,7 @@ class Modal {
 
   /**
    * Get current url hash
+   * @static
    * @return {String} hash string or null if none.
    */
   static get hash() {
@@ -139,10 +137,11 @@ class Modal {
   }
 
   /**
-   * Opens modal, add content and optional class
-   * @param {string|DOMNode} content        - String or DOMNode to be added to modal content.
-   * @param {string}         optionalClass  - Optional class to be added to modal
-   * @param {HTMLElement}    focusOnClose   - Optional element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place.
+   * Opens modal, adds content and optional CSS class
+   * @static
+   * @param {string|HTMLElement} content - String or DOMNode to be added as the modal content.
+   * @param {string} optionalClass - Optional CSS class to add to the modal element.
+   * @param {HTMLElement} [focusOnClose] - Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place.
    *
    * @return {Class} Modal instance
    */
@@ -191,16 +190,14 @@ class Modal {
 
       _u.fireCustomEvent('wtc-modal-open', { modal: this });
     }
-    
-    console.log(Modal.instance);
 
     return modal;
   }
 
   /**
-   * Sets a callback for when the modal opens
+   * Sets a callback to run when the modal opens
+   * @static
    * @param {Function} callback - Callback function
-   *
    * @return {Class} Modal instance
    */
   static set onOpen(callback = null) {
@@ -214,9 +211,9 @@ class Modal {
   }
 
   /**
-   * Sets a callback for when the modal closes
+   * Sets a callback to run when the modal closes
+   * @static
    * @param {Function} callback - Callback function
-   *
    * @return {Class} Modal instance
    */
   static set onClose(callback = null) {
@@ -229,20 +226,33 @@ class Modal {
     return this.instance;
   }
   
+  /**
+   * Shifts focus to the very beginning of the modal element—just before the close button.
+   * @static
+   */
   static focusFirstElement() {
     Modal.instance.modalFocusStart.focus();
   }
 
-  static get modal(){
+  /**
+   * Gets the modal DOM element
+   * @return {HTMLElement}
+   */
+  static get modal() {
     return this.instance.modal;
   }
 
-  static get modalContent(){
+  /**
+   * Gets the modal content DOM element
+   * @return {HTMLElement}
+   */
+  static get modalContent() {
     return this.instance.modalContent;
   }
 
   /**
-   * Main instance getter
+   * Gets the main Modal instance
+   * @return {Class}
    */
   static get instance() {
     if(!instance) {
