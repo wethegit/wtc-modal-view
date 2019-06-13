@@ -1,13 +1,10 @@
 /**
  * Modal
- * Generic and static class to controll modal a modal.
- * It also contains two static helpers specific to nclood.
+ * Generic and static class to control a modal window.
  *
  * @static
- * @author Marlon Marcello <marlon@wethecollective.com>
- * @version 0.8
- * @requirements wtc-utility-helpers
- * @created Nov 23, 2016
+ * @version 2.0.0
+ * @created June 12, 2019
  */
 
 import _u from 'wtc-utility-helpers';
@@ -28,31 +25,42 @@ class Modal {
       return instance;
     }
 
+    // state = open or closed
     this.state = false;
-    this.modal = document.createElement('modal');
+    this.modal = document.createElement('div');
     this.modalOverlay = document.createElement('div');
+    this.modalFocusStart = document.createElement('div');
+    this.modalFocusEnd = document.createElement('div');
     this.modalClose = document.createElement('button');
     this.modalClose.innerHTML = '<span>Close</span>';
     this.modalWrapper = document.createElement('div');
     this.modalContent = document.createElement('div');
     this.className = 'modal';
+    this.classNameOpen = 'modal--open';
     this.optionalClass = null;
     this.appended = false;
     this.onOpen = null;
     this.onClose = null;
 
-    _u.addClass(this.className, this.modal);
-    _u.addClass(`${this.className}__overlay`, this.modalOverlay);
-    _u.addClass(`${this.className}__close`, this.modalClose);
-    _u.addClass(`${this.className}__wrapper`, this.modalWrapper);
-    _u.addClass(`${this.className}__content`, this.modalContent);
+    // add the classes and focus attributes
+    this.modal.classList.add(this.className);
+    this.modalOverlay.classList.add(`${this.className}__overlay`);
+    this.modalFocusStart.classList.add(`${this.className}__focus-start`);
+    this.modalFocusEnd.classList.add(`${this.className}__focus-end`);
+    this.modalClose.classList.add(`${this.className}__close`);
+    this.modalWrapper.classList.add(`${this.className}__wrapper`);
+    this.modalContent.classList.add(`${this.className}__content`);
 
+    this.modalFocusStart.setAttribute('tabindex', -1);
+    this.modalFocusEnd.setAttribute('tabindex', 0);
+    
+    // create the markup structure
+    this.modalWrapper.appendChild(this.modalFocusStart);
     this.modalWrapper.appendChild(this.modalClose);
     this.modalWrapper.appendChild(this.modalContent);
-
+    this.modalWrapper.appendChild(this.modalFocusEnd);
     this.modal.appendChild(this.modalOverlay);
     this.modal.appendChild(this.modalWrapper);
-
     document.body.appendChild(this.modal);
 
     instance = this;
@@ -76,18 +84,32 @@ class Modal {
     const modal = Modal.instance;
 
     if(modal.state) {
-      _u.removeClass('is-open', modal.modal);
+      modal.modal.classList.remove(modal.classNameOpen);
+      
+      // if a focusOnClose element was passed in when the modal opened, focus it!
+      if (modal.focusOnClose) {
+        // check if the element is in fact focusable
+        if (modal.focusOnClose instanceof HTMLButtonElement ||
+            modal.focusOnClose.getAttribute('tabindex') ||
+            modal.focusOnClose instanceof HTMLAnchorElement) {
+          modal.focusOnClose.focus();
+        } else {
+          console.error('focusOnClose element must be a focusable alement, or must have a tabindex attribute.');
+        }
+      }
 
       // This gives us time to animate and transition
       setTimeout(() => {
         if (modal.optionalClass) {
-          _u.removeClass(modal.optionalClass, modal.modal);
+          modal.modal.classList.remove(modal.optionalClass);
           modal.optionalClass = null;
         }
 
         modal.state = false;
         modal.modalContent.innerHTML = '';
       }, 500);
+      
+      modal.modalFocusEnd.removeEventListener('focus', Modal.focusFirstElement);
 
       if (Modal.hash) {
         history.replaceState("", document.title, window.location.pathname);
@@ -118,12 +140,13 @@ class Modal {
 
   /**
    * Opens modal, add content and optional class
-   * @param {string|DOMNode} content       - String or DOMNode to be added to modal content.
-   * @param {string}         optionalClass - Optional class to be added to modal
+   * @param {string|DOMNode} content        - String or DOMNode to be added to modal content.
+   * @param {string}         optionalClass  - Optional class to be added to modal
+   * @param {HTMLElement}    focusOnClose   - Optional element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place.
    *
    * @return {Class} Modal instance
    */
-  static open(content, optionalClass) {
+  static open(content, optionalClass, focusOnClose) {
     const modal = Modal.instance;
 
     if(!modal.state) {
@@ -133,117 +156,43 @@ class Modal {
         } else {
           modal.modalContent.appendChild(content);
         }
+        
+        if (focusOnClose && focusOnClose instanceof HTMLElement) {
+          modal.focusOnClose = focusOnClose;
+        }
       }
 
       if (optionalClass) {
-        _u.addClass(optionalClass, modal.modal);
+        modal.modal.classList.add(optionalClass);
         modal.optionalClass = optionalClass;
       }
 
-      // This is here so avoid a flash of content for the first time
-      if (!modal.appended) {
-        modal.appended = true;
-
-        setTimeout(()=> {
-          _u.addClass('is-open', modal.modal);
-        }, 100);
-      } else {
-        _u.addClass('is-open', modal.modal);
-      }
+      // This is here to avoid a flash of content for the first time
+      let delay = modal.appended ? 0 : 100;
+      if (!modal.appended) modal.appended = true;
+      setTimeout(()=> {
+        modal.modal.classList.add(modal.classNameOpen);
+      }, delay);
 
       modal.state = true;
+      
+      Modal.focusFirstElement();
 
-      if (modal.onOpen) {
-        modal.onOpen();
-      }
+      if (modal.onOpen) modal.onOpen();
 
-      this.onKeyDown = (e)=> {
-        if(e.keyCode == 27) {
+      this.onKeyDown = (e) => {
+        if (e.keyCode == 27) {
           Modal.close();
           document.removeEventListener('keydown', this.onKeyDown, false);
         }
       }
       document.addEventListener('keydown', this.onKeyDown, false);
+      modal.modalFocusEnd.addEventListener('focus', Modal.focusFirstElement);
 
       _u.fireCustomEvent('wtc-modal-open', { modal: this });
     }
-
-    return modal;
-  }
-
-  /**
-   * Open retailer content inside modal
-   * @param {DOMNode} retailer - Retailer node.
-   *
-   * @return {Class} Modal instance
-   */
-  static openRetailer(retailer = null) {
-    if (retailer) {
-      Modal.open(retailer, 'modal--retailer');
-    }
-  }
-
-  /**
-   * Open nclood video inside modal.
-   *
-   * @param {Object} options Video options. http://share.nintendo.com/nclood/stable/docs/#Video
-   * @param {Number} ratio   Ratio of the video.
-   * @param {Number} aspect  Aspect of the video.
-   *
-   * @return {Class} Modal instance.
-   */
-  static openVideo(options = {}, ratio = 0.85, aspect = 16 / 9) {
-    const modal = Modal.instance;
-    let contentWrapper = modal.modalContent;
-    let wrapper = document.createElement('div');
-
-    let cs = getComputedStyle(contentWrapper);
-
-    let paddingX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
-    let borderX = parseFloat(cs.borderLeftWidth) + parseFloat(cs.borderRightWidth);
-    let elementWidth = contentWrapper.offsetWidth - paddingX - borderX;
-
-
-    let width = options.width || elementWidth;
-    let maxheight = window.innerHeight * ratio;
-
-    if (width > document.body.clientWidth * ratio) {
-      width = document.body.clientWidth * ratio;
-    }
-
-    let height = width / aspect;
-
-    if (maxheight + 100 > window.innerHeight) {
-      maxheight = maxheight - 80;
-    }
-
-    if (height > maxheight) {
-      height = maxheight;
-      width = maxheight * aspect;
-    }
-
-    let settings = _u.extend({
-      target: wrapper,
-      videoId: null,
-      name: '',
-      autoplay: true,
-      width: width,
-      height: height,
-      initialBitrate: {
-        level: 1,
-        duration: 30
-      },
-      chromeless: true
-    }, options);
-
-    contentWrapper.appendChild(wrapper);
-    var video = new nclood.Video(settings);
-
-    if (options.hash) {
-      window.location.hash = `!/${options.hash}/`;
-    }
-
-    Modal.open(null, 'modal--video');
+    
+    console.log(Modal.instance);
 
     return modal;
   }
@@ -278,6 +227,10 @@ class Modal {
     }
 
     return this.instance;
+  }
+  
+  static focusFirstElement() {
+    Modal.instance.modalFocusStart.focus();
   }
 
   static get modal(){
