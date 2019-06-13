@@ -33,6 +33,7 @@
     "autoprefixer": "^8.5.1",
     "babel-loader": "^8.0.5",
     "doxdox": "^3.0.0",
+    "jsdoc": "~3.6.2",
     "node-sass": "^4.9.0",
     "postcss-cli": "^6.1.2",
     "uglify-js": "^3.3.28",
