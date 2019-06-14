@@ -13,6 +13,9 @@ let instance = null;
 class Modal {
   /**
    * Creates base DOM element.
+   * @example
+   * const Modal = new Modal();
+   * 
    * @returns {Class} The Modal instance
    */
   constructor() {
@@ -139,6 +142,16 @@ class Modal {
   /**
    * Opens modal, adds content and optional CSS class
    * @static
+   * 
+   * @example
+   * const triggerButton = document.querySelector('trigger');
+   * const testContent = '<p>Some sample content!</p>';
+   * 
+   * triggerButton.addEventListener('click', () => {
+   *   // Passing `this` as the third argument sets our trigger as the focused item once the Modal closes.
+   *   Modal.open(testContent, 'test-modal-class', this);
+   * });
+   * 
    * @param {string|HTMLElement} content - String or DOMNode to be added as the modal content.
    * @param {string} optionalClass - Optional CSS class to add to the modal element.
    * @param {HTMLElement} [focusOnClose] - Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place.

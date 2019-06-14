@@ -31,6 +31,13 @@ Creates base DOM element.
 
 
 
+##### Examples
+
+```javascript
+const Modal = new Modal();
+```
+
+
 ##### Returns
 
 
@@ -71,6 +78,19 @@ Opens modal, adds content and optional CSS class
 | focusOnClose | `HTMLElement`  | - Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place. | *Optional* |
 
 
+
+
+##### Examples
+
+```javascript
+const triggerButton = document.querySelector('trigger');
+const testContent = '<p>Some sample content!</p>';
+
+triggerButton.addEventListener('click', () => {
+  // Passing `this` as the third argument sets our trigger as the focused item once the Modal closes.
+  Modal.open(testContent, 'test-modal-class', this);
+});
+```
 
 
 ##### Returns
