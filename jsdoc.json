@@ -1,14 +1,21 @@
 {
-  "tags": {
-    "allowUnknownTags": true
+  "source": {
+    "include": ["./src"],
+    "includePattern": ".js$",
+    "exludePattern": "(node_modules/|docs)"
   },
   "opts": {
     "destination": "./docs",
-    "private": true
+    "private": true,
+    "readme": "./README.md"
   },
   "plugins": [
     "plugins/markdown"
   ],
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true
+  },
   "templates": {
     "cleverLinks": false,
     "monospaceLinks": false,
