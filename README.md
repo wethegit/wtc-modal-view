@@ -1,4 +1,4 @@
-# [wtc-modal-view](https://github.com/wethegit/wtc-modal-view#readme) *1.2.1*
+# [wtc-modal-view](https://github.com/wethegit/wtc-modal-view#readme) *1.2.3*
 
 > A simple, unopinionated modal class.
 
