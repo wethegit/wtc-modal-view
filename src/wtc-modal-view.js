@@ -7,11 +7,7 @@ let instance = null;
  *
  * @static
  * @author Marlon Marcello <marlon@wethecollective.com>
-<<<<<<< HEAD
  * @version 1.2.0
-=======
- * @version 1.1.9
->>>>>>> 80a97982d9349bf75874fecb1a7b2a3f0e6bc33f
  * @requirements wtc-utility-helpers
  * @created Nov 23, 2016
  */
