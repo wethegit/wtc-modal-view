@@ -6,9 +6,10 @@ let instance = null;
  * A Modal class which can display programatically-generated content, or pull in content from an existing DOM node.
  *
  * @static
- * @author Andrew Rubin <andrew@wethecollective.com>
- * @version 2.0.0
- * @created June 13, 2019
+ * @author Marlon Marcello <marlon@wethecollective.com>
+ * @version 1.2.0
+ * @requirements wtc-utility-helpers
+ * @created Nov 23, 2016
  */
 class Modal {
   /**
