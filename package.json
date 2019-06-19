@@ -1,6 +1,6 @@
 {
   "name": "wtc-modal-view",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A simple, unopinionated modal class.",
   "homepage": "https://github.com/wethegit/wtc-modal-view#readme",
   "author": "Marlon Marcello <marlon@wethecollective.com> (http://wethecollective.com)",
@@ -19,7 +19,7 @@
   "keywords": [
     "wtc"
   ],
-  "main": "dist/wtc-modal-view.js",
+  "main": "dist/wtc-modal-view.min.js",
   "scripts": {
     "prebuild-js": "npx babel src/ --presets @babel/preset-env --out-dir build",
     "prebuild-css": "node-sass --output-style compressed src/wtc-modal-view.scss build/wtc-modal-view.css",

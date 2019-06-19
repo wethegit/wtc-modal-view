@@ -1943,7 +1943,7 @@ dmd@^3.0.10:
     cache-point "^0.4.1"
     common-sequence "^1.0.2"
     file-set "^2.0.0"
-    handlebars "^4.0.11"
+    handlebars "^4.1.2"
     marked "^0.3.16"
     object-get "^2.1.0"
     reduce-flatten "^1.0.1"
@@ -1985,7 +1985,7 @@ doxdox-plugin-bootstrap@~2.0.0:
   resolved "https://registry.yarnpkg.com/doxdox-plugin-bootstrap/-/doxdox-plugin-bootstrap-2.0.0.tgz#2b0dd3aa1fb50d602e7176fe1e28e3563b9d88b3"
   integrity sha512-ODrtIk8K/Ln84bhTd+Th4sC5gPX7UJcvQ045mIluFa3UjeJsuofs+AiPo+LrLCIVzXaqIe7FBAckqduxBDencg==
   dependencies:
-    handlebars "4.1.0"
+    handlebars "4.1.2"
     highlight.js "9.15.6"
     markdown-it "8.4.2"
 
@@ -1994,7 +1994,7 @@ doxdox-plugin-handlebars@~2.0.0:
   resolved "https://registry.yarnpkg.com/doxdox-plugin-handlebars/-/doxdox-plugin-handlebars-2.0.0.tgz#83bcc0e51f76c44efdc4d7110cd092d9b97fd08a"
   integrity sha512-NQyMDJZM9Z7Mfs5ETSCKIPl2z4F9bw9W39oCDKXIhiEsn7pRmjWonKI7i5TMsfBqXNQEzO4aNraLt+424n/Tdw==
   dependencies:
-    handlebars "4.1.0"
+    handlebars "4.1.2"
     highlight.js "9.15.6"
     markdown-it "8.4.2"
 
@@ -2003,7 +2003,7 @@ doxdox-plugin-markdown@~2.0.0:
   resolved "https://registry.yarnpkg.com/doxdox-plugin-markdown/-/doxdox-plugin-markdown-2.0.0.tgz#579beb88b465f1d9d1f829161be5bd040696d5e5"
   integrity sha512-KKiGEPPmc/34QhcxzxWA9cxmBHYAKMfGKfQmOKFvvvrwblWNCaiSnKRKAyDaANXKjvstbuokOJkV5Z2/xrkHvA==
   dependencies:
-    handlebars "4.1.0"
+    handlebars "4.1.2"
 
 doxdox@^3.0.0:
   version "3.0.0"
