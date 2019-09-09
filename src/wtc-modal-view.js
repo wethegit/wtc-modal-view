@@ -15,7 +15,7 @@ class Modal {
   /**
    * Creates base DOM element.
    * @example
-   * const Modal = new Modal();
+   * const myModal = new Modal();
    * 
    * @returns {Class} The Modal instance
    */
@@ -150,7 +150,7 @@ class Modal {
    * 
    * triggerButton.addEventListener('click', () => {
    *   // Passing `this` as the third argument sets our trigger as the focused item once the Modal closes.
-   *   Modal.open(testContent, 'test-modal-class', this);
+   *   myModal.open(testContent, 'test-modal-class', this);
    * });
    * 
    * @param {string|HTMLElement} content - String or DOMNode to be added as the modal content.
