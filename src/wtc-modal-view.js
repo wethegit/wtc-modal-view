@@ -50,6 +50,10 @@ class Modal {
     this.modalWrapper.classList.add(`${this.className}__wrapper`);
     this.modalContent.classList.add(`${this.className}__content`);
 
+    // adds role of dialog for a11y
+    // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role
+    this.modal.setAttribute("role", "dialog");
+
     this.modalFocusStart.setAttribute('tabindex', -1);
     this.modalFocusEnd.setAttribute('tabindex', 0);
     
