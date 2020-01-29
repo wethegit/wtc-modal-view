@@ -28,8 +28,6 @@
         <article>
             <pre class="prettyprint source linenums"><code>import _u from 'wtc-utility-helpers';
 
-let instance = null;
-
 /**
  * A Modal class which can display programatically-generated content, or pull in content from an existing DOM node.
  *
@@ -41,42 +39,47 @@ let instance = null;
  */
 class Modal {
   /**
-   * Creates base DOM element.
+   * @param {Object} [options={}] - List of options
+   * @param {string} [options.closeHtml='&lt;span>Close&lt;/span>'] - HTML to be inserted inside the close button
+   * @param {string} [options.optionalClass] - Class to be added to the modal for custom styling
+   * @param {function} [options.onOpen] - A function to be called when the modal opens
+   * @param {function} [options.onClose] - A function to be called when the modal closes
    * @example
    * const myModal = new Modal();
-   * 
-   * @returns {Class} The Modal instance
    */
-  constructor() {
-    if (instance) {
-      return instance;
-    }
-
+  constructor(options = {}) {
     // state = open or closed
+    const { closeHtml, optionalClass, onOpen, onClose } = options || null;
+    
     this.state = false;
     this.modal = document.createElement('div');
     this.modalOverlay = document.createElement('div');
     this.modalFocusStart = document.createElement('div');
     this.modalFocusEnd = document.createElement('div');
     this.modalClose = document.createElement('button');
-    this.modalClose.innerHTML = '&lt;span>Close&lt;/span>';
+    this.modalClose.innerHTML = closeHtml || '&lt;span>Close&lt;/span>';
     this.modalWrapper = document.createElement('div');
     this.modalContent = document.createElement('div');
     this.className = 'modal';
     this.classNameOpen = 'modal--open';
-    this.optionalClass = null;
     this.appended = false;
-    this.onOpen = null;
-    this.onClose = null;
+    this.onOpen = onOpen;
+    this.onClose = onClose;
+    this.focusOnClose = null;
 
     // add the classes and focus attributes
     this.modal.classList.add(this.className);
+    if (optionalClass) this.modal.classList.add(optionalClass);
     this.modalOverlay.classList.add(`${this.className}__overlay`);
     this.modalFocusStart.classList.add(`${this.className}__focus-start`);
     this.modalFocusEnd.classList.add(`${this.className}__focus-end`);
     this.modalClose.classList.add(`${this.className}__close`);
     this.modalWrapper.classList.add(`${this.className}__wrapper`);
     this.modalContent.classList.add(`${this.className}__content`);
+
+    // adds role of dialog for a11y
+    // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role
+    this.modal.setAttribute("role", "dialog");
 
     this.modalFocusStart.setAttribute('tabindex', -1);
     this.modalFocusEnd.setAttribute('tabindex', 0);
@@ -88,40 +91,28 @@ class Modal {
     this.modalWrapper.appendChild(this.modalFocusEnd);
     this.modal.appendChild(this.modalOverlay);
     this.modal.appendChild(this.modalWrapper);
-    document.body.appendChild(this.modal);
-
-    instance = this;
-
-    this.modalClose.addEventListener('click', (e) => {
-      Modal.close();
-    });
-
-    this.modalOverlay.addEventListener('click', (e) => {
-      Modal.close();
-    });
-
-    return this;
+    
+    this.modalFocusEnd.addEventListener('focus', this.focusFirstElement.bind(this));
+    this.modalClose.addEventListener('click', this.close.bind(this));
+    this.modalOverlay.addEventListener('click', this.close.bind(this));
   }
 
   /**
    * Closes modal, removes content and optional class,
    * and shifts user focus back to triggering element, if specified.
-   * @static
-   * @return {Class} Modal instance.
    */
-  static close() {
-    const modal = Modal.instance;
-
-    if(modal.state) {
-      modal.modal.classList.remove(modal.classNameOpen);
+  close() {
+    if(this.state) {
+      this.modal.classList.remove(this.classNameOpen);
       
       // if a focusOnClose element was passed in when the modal opened, focus it!
-      if (modal.focusOnClose) {
+      if (this.focusOnClose) {
         // check if the element is in fact focusable
-        if (modal.focusOnClose instanceof HTMLButtonElement ||
-            modal.focusOnClose.getAttribute('tabindex') ||
-            modal.focusOnClose instanceof HTMLAnchorElement) {
-          modal.focusOnClose.focus();
+        if (this.focusOnClose instanceof HTMLButtonElement ||
+            this.focusOnClose.getAttribute('tabindex') ||
+            this.focusOnClose instanceof HTMLAnchorElement) {
+          this.focusOnClose.focus();
+          this.focusOnClose = null;
         } else {
           console.error('focusOnClose element must be a focusable alement, or must have a tabindex attribute.');
         }
@@ -129,28 +120,19 @@ class Modal {
 
       // This gives us time to animate and transition
       setTimeout(() => {
-        if (modal.optionalClass) {
-          modal.modal.classList.remove(modal.optionalClass);
-          modal.optionalClass = null;
-        }
-
-        modal.state = false;
-        modal.modalContent.innerHTML = '';
+        this.state = false;
       }, 500);
       
-      modal.modalFocusEnd.removeEventListener('focus', Modal.focusFirstElement);
-
       if (Modal.hash) {
         history.replaceState("", document.title, window.location.pathname);
       }
 
-      if (modal.onClose) {
-        modal.onClose();
+      if (this.onClose) {
+        this.onClose();
       }
+      
       _u.fireCustomEvent('wtc-modal-close', { modal: this });
     }
-
-    return modal;
   }
 
   /**
@@ -170,138 +152,68 @@ class Modal {
 
   /**
    * Opens modal, adds content and optional CSS class
-   * @static
    * 
    * @example
+   * const myModal = new Modal({ optionalClass: 'test-modal-class' });
    * const triggerButton = document.querySelector('trigger');
    * const testContent = '&lt;p>Some sample content!&lt;/p>';
    * 
    * triggerButton.addEventListener('click', () => {
    *   // Passing `this` as the third argument sets our trigger as the focused item once the Modal closes.
-   *   myModal.open(testContent, 'test-modal-class', this);
+   *   myModal.open(testContent, this);
    * });
    * 
    * @param {string|HTMLElement} content - String or DOMNode to be added as the modal content.
-   * @param {string} optionalClass - Optional CSS class to add to the modal element.
    * @param {HTMLElement} [focusOnClose] - Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place.
-   *
-   * @return {Class} Modal instance
    */
-  static open(content, optionalClass, focusOnClose) {
-    const modal = Modal.instance;
-
-    if(!modal.state) {
+  open(content, focusOnClose) {
+    if(!this.state) {
+      document.body.appendChild(this.modal);
+      
       if(content) {
         if (typeof content == 'string') {
-          modal.modalContent.innerHTML = content;
+          this.modalContent.innerHTML = content;
         } else {
-          modal.modalContent.appendChild(content);
+          this.modalContent.appendChild(content);
         }
         
         if (focusOnClose &amp;&amp; focusOnClose instanceof HTMLElement) {
-          modal.focusOnClose = focusOnClose;
+          this.focusOnClose = focusOnClose;
         }
-      }
-
-      if (optionalClass) {
-        modal.modal.classList.add(optionalClass);
-        modal.optionalClass = optionalClass;
       }
 
       // This is here to avoid a flash of content for the first time
-      let delay = modal.appended ? 0 : 100;
-      if (!modal.appended) modal.appended = true;
+      let delay = this.appended ? 0 : 100;
+      if (!this.appended) this.appended = true;
       setTimeout(()=> {
-        modal.modal.classList.add(modal.classNameOpen);
+        this.modal.classList.add(this.classNameOpen);
       }, delay);
 
-      modal.state = true;
+      this.state = true;
       
-      Modal.focusFirstElement();
+      this.focusFirstElement();
 
-      if (modal.onOpen) modal.onOpen();
+      if (this.onOpen) this.onOpen();
 
-      this.onKeyDown = (e) => {
+      const onKeyDown = (e) => {
         if (e.keyCode == 27) {
-          Modal.close();
-          document.removeEventListener('keydown', this.onKeyDown, false);
+          this.close();
+          document.removeEventListener('keydown', onKeyDown.bind(this), false);
         }
       }
-      document.addEventListener('keydown', this.onKeyDown, false);
-      modal.modalFocusEnd.addEventListener('focus', Modal.focusFirstElement);
+      
+      document.addEventListener('keydown', onKeyDown.bind(this), false);
 
       _u.fireCustomEvent('wtc-modal-open', { modal: this });
     }
-
-    return modal;
   }
 
-  /**
-   * Sets a callback to run when the modal opens
-   * @static
-   * @param {Function} callback - Callback function
-   * @return {Class} Modal instance
-   */
-  static set onOpen(callback = null) {
-    if (typeof callback == 'function') {
-      this.instance.onOpen = callback;
-    } else {
-      throw 'Must be a function';
-    }
-
-    return this.instance;
-  }
-
-  /**
-   * Sets a callback to run when the modal closes
-   * @static
-   * @param {Function} callback - Callback function
-   * @return {Class} Modal instance
-   */
-  static set onClose(callback = null) {
-    if (typeof callback == 'function') {
-      this.instance.onClose = callback;
-    } else {
-      throw 'Must be a function';
-    }
-
-    return this.instance;
-  }
-  
   /**
    * Shifts focus to the very beginning of the modal element—just before the close button.
    * @static
    */
-  static focusFirstElement() {
-    Modal.instance.modalFocusStart.focus();
-  }
-
-  /**
-   * Gets the modal DOM element
-   * @return {HTMLElement}
-   */
-  static get modal() {
-    return this.instance.modal;
-  }
-
-  /**
-   * Gets the modal content DOM element
-   * @return {HTMLElement}
-   */
-  static get modalContent() {
-    return this.instance.modalContent;
-  }
-
-  /**
-   * Gets the main Modal instance
-   * @return {Class}
-   */
-  static get instance() {
-    if(!instance) {
-      instance = new Modal();
-    }
-
-    return instance;
+  focusFirstElement() {
+    this.modalFocusStart.focus();
   }
 }
 
@@ -321,7 +233,7 @@ export default Modal;</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Mon Sep 09 2019 15:21:51 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Wed Jan 29 2020 10:17:48 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

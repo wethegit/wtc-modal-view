@@ -11,7 +11,11 @@ import _u from 'wtc-utility-helpers';
  */
 class Modal {
   /**
-   * Creates base DOM element.
+   * @param {Object} [options={}] - List of options
+   * @param {string} [options.closeHtml='<span>Close</span>'] - HTML to be inserted inside the close button
+   * @param {string} [options.optionalClass] - Class to be added to the modal for custom styling
+   * @param {function} [options.onOpen] - A function to be called when the modal opens
+   * @param {function} [options.onClose] - A function to be called when the modal closes
    * @example
    * const myModal = new Modal();
    */
