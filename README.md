@@ -15,37 +15,19 @@ A Modal class which can display programatically-generated content, or pull in co
 
 
 
-##### Returns
-
-
-- `Void`
-
-
-
-#### Modal.constructor([options&#x3D;{}]) 
-
-
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| options&#x3D;{} | `Object`  | - List of options | *Optional* |
-| options.closeHtml&#x3D;&#x27;&lt;span&gt;Close&lt;/span&gt;&#x27; | `string`  | - HTML to be inserted inside the close button | *Optional* |
-| options.optionalClass | `string`  | - Class to be added to the modal for custom styling | *Optional* |
-| options.onOpen | `function`  | - A function to be called when the modal opens | *Optional* |
-| options.onClose | `function`  | - A function to be called when the modal closes | *Optional* |
-
-
-
-
 ##### Examples
 
 ```javascript
 const myModal = new Modal();
+const triggerButton = document.querySelector('trigger');
+
+myModal.optionalClass = "modal--myModal";
+myModal.content = '<p>Some sample content!</p>';
+myModal.focusOnClose = triggerButton;
+
+triggerButton.addEventListener('click', () => {
+  myModal.open();
+});
 ```
 
 
@@ -58,8 +40,7 @@ const myModal = new Modal();
 
 #### Modal.close() 
 
-Closes modal, removes content and optional class,
-and shifts user focus back to triggering element, if specified.
+Closes modal and shifts user focus back to triggering element, if specified.
 
 
 
@@ -73,35 +54,13 @@ and shifts user focus back to triggering element, if specified.
 
 
 
-#### open(content[, focusOnClose]) 
+#### open() 
 
-Opens modal, adds content and optional CSS class
-
-
-
-
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| content | `string` `HTMLElement`  | - String or DOMNode to be added as the modal content. | &nbsp; |
-| focusOnClose | `HTMLElement`  | - Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place. | *Optional* |
+Opens modal
 
 
 
 
-##### Examples
-
-```javascript
-const myModal = new Modal({ optionalClass: 'test-modal-class' });
-const triggerButton = document.querySelector('trigger');
-const testContent = '<p>Some sample content!</p>';
-
-triggerButton.addEventListener('click', () => {
-  // Passing `this` as the third argument sets our trigger as the focused item once the Modal closes.
-  myModal.open(testContent, this);
-});
-```
 
 
 ##### Returns
@@ -116,6 +75,192 @@ triggerButton.addEventListener('click', () => {
 Shifts focus to the very beginning of the modal element—just before the close button.
 
 
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### focusOnClose() 
+
+Gets the element that will be focused when the modal closes
+
+
+
+
+
+
+##### Returns
+
+
+- `HTMLElement`  
+
+
+
+#### focusOnClose(element) 
+
+Sets the element that will be focused when the modal closes
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| element | `HTMLElement`  | Must be a focusable element | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### onOpen() 
+
+Gets the function that is called when the modal opens
+
+
+
+
+
+
+##### Returns
+
+
+- `Function`  
+
+
+
+#### onOpen(callback) 
+
+Sets the function that is called when the modal opens
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| callback | `Function`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### onClose() 
+
+Get the function that is called when the modal closes
+
+
+
+
+
+
+##### Returns
+
+
+- `Function`  
+
+
+
+#### onClose(callback) 
+
+Sets the function that is called when the modal closes
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| callback | `Function`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### optionalClass(className) 
+
+Sets an optional class name on the modal for custom styling
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| className | `string`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### closeButtonContent(content) 
+
+Sets the content of the close button, useful for localizing
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| content | `string` `HTMLElement`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### content(content) 
+
+Sets the content of the modal
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| content | `string` `HTMLElement`  |  | &nbsp; |
 
 
 
