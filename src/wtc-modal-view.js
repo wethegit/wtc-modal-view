@@ -24,14 +24,17 @@ class Modal {
     this.modalClose.innerHTML = "<span>Close</span>";
     this.modalWrapper = document.createElement("div");
     this.modalContent = document.createElement("div");
+    this.wrapperOfContent = document.createElement("div");
     this.className = "modal";
     this.classNameOpen = "modal--open";
     this.appended = false;
+    this.storeContent = false;
 
     // getters and setters variables
     this._onOpen = null;
     this._onClose = null;
     this._focusOnClose = null;
+    this._content = null;
 
     // add the classes and focus attributes
     this.modal.classList.add(this.className);
@@ -41,6 +44,7 @@ class Modal {
     this.modalClose.classList.add(`${this.className}__close`);
     this.modalWrapper.classList.add(`${this.className}__wrapper`);
     this.modalContent.classList.add(`${this.className}__content`);
+    this.wrapperOfContent.classList.add(`${this.className}-content-wrapper`);
 
     // adds role of dialog for a11y
     // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role
@@ -56,6 +60,8 @@ class Modal {
     this.modalWrapper.appendChild(this.modalFocusEnd);
     this.modal.appendChild(this.modalOverlay);
     this.modal.appendChild(this.modalWrapper);
+
+    document.body.appendChild(this.wrapperOfContent);
 
     this.modalFocusEnd.addEventListener(
       "focus",
@@ -243,14 +249,19 @@ class Modal {
   set content(content) {
     if (!content) return;
 
-    if (typeof content === "string") {
-      this.modalContent.innerHTML = content;
-      return;
-    }
+    if (typeof content !== "string" && !content instanceof HTMLElement) return;
 
-    if (content instanceof HTMLElement) {
+    if (this.storeContent) this.wrapperOfContent.appendChild(this._content);
+
+    this._content = content;
+
+    if (typeof content === "string") {
+      this.storeContent = false;
+      this.modalContent.innerHTML = this._content;
+    } else {
+      this.storeContent = true;
       this.modalContent.innerHTML = "";
-      this.modalContent.appendChild(content);
+      this.modalContent.appendChild(this._content);
       return;
     }
   }
