@@ -40,7 +40,8 @@ triggerButton.addEventListener('click', () => {
 
 #### Modal.close() 
 
-Closes modal and shifts user focus back to triggering element, if specified.
+Closes modal, removes content and optional class,
+and shifts user focus back to triggering element, if specified.
 
 
 
@@ -56,7 +57,7 @@ Closes modal and shifts user focus back to triggering element, if specified.
 
 #### open() 
 
-Opens modal
+Opens modal, adds content and optional CSS class
 
 
 

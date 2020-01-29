@@ -66,7 +66,8 @@ class Modal {
   }
 
   /**
-   * Closes modal and shifts user focus back to triggering element, if specified.
+   * Closes modal, removes content and optional class,
+   * and shifts user focus back to triggering element, if specified.
    */
   close() {
     if (this.state) {
@@ -102,7 +103,7 @@ class Modal {
   }
 
   /**
-   * Opens modal
+   * Opens modal, adds content and optional CSS class
    */
   open() {
     if (!this.state) {
@@ -228,6 +229,7 @@ class Modal {
     }
 
     if (content instanceof HTMLElement) {
+      this.modalClose.innerHTML = "";
       this.modalClose.appendChild(content);
       return;
     }
@@ -247,6 +249,7 @@ class Modal {
     }
 
     if (content instanceof HTMLElement) {
+      this.modalContent.innerHTML = "";
       this.modalContent.appendChild(content);
       return;
     }
