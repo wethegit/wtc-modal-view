@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Modal<span class="signature">()</span><span class="type-signature"> &rarr; {Class}</span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Modal<span class="signature">()</span><span class="type-signature"></span></h2>
         
             <div class="class-description"><p>A Modal class which can display programatically-generated content, or pull in content from an existing DOM node.</p></div>
         
@@ -45,16 +45,12 @@
     
 
     
-    <h4 class="name" id="Modal"><span class="type-signature"></span>new Modal<span class="signature">()</span><span class="type-signature"> &rarr; {Class}</span></h4>
+    <h4 class="name" id="Modal"><span class="type-signature"></span>new Modal<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
 
 
-
-<div class="description">
-    <p>Creates base DOM element.</p>
-</div>
 
 
 
@@ -71,9 +67,6 @@
 <dl class="details">
 
     
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>1.2.4</li></ul></dd>
-    
 
     
 
@@ -89,13 +82,6 @@
 
     
 
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li><a href="mailto:marlon@wethecollective.com">Marlon Marcello</a></li>
-        </ul>
-    </dd>
     
 
     
@@ -107,7 +93,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line22">line 22</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line17">line 17</a>
     </li></ul></dd>
     
 
@@ -132,35 +118,22 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>The Modal instance</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Class</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>const myModal = new Modal();</code></pre>
+    <pre class="prettyprint"><code>const myModal = new Modal();
+const triggerButton = document.querySelector('trigger');
+
+myModal.optionalClass = "modal--myModal";
+myModal.content = '&lt;p>Some sample content!&lt;/p>';
+myModal.focusOnClose = triggerButton;
+
+triggerButton.addEventListener('click', () => {
+  myModal.open();
+});</code></pre>
 
 
 
@@ -228,7 +201,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line133">line 133</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line108">line 108</a>
     </li></ul></dd>
     
 
@@ -246,13 +219,13 @@
 
         
             
-<h4 class="name" id=".instance"><span class="type-signature">(static) </span>instance<span class="type-signature"></span></h4>
+<h4 class="name" id="closeButtonContent"><span class="type-signature"></span>closeButtonContent<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Gets the main Modal instance</p>
+    <p>Sets the content of the close button, useful for localizing</p>
 </div>
 
 
@@ -290,7 +263,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line271">line 271</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line269">line 269</a>
     </li></ul></dd>
     
 
@@ -308,13 +281,13 @@
 
         
             
-<h4 class="name" id=".modal"><span class="type-signature">(static) </span>modal<span class="type-signature"></span></h4>
+<h4 class="name" id="content"><span class="type-signature"></span>content<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Gets the modal DOM element</p>
+    <p>Sets the content of the modal</p>
 </div>
 
 
@@ -352,7 +325,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line255">line 255</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line289">line 289</a>
     </li></ul></dd>
     
 
@@ -370,13 +343,13 @@
 
         
             
-<h4 class="name" id=".modalContent"><span class="type-signature">(static) </span>modalContent<span class="type-signature"></span></h4>
+<h4 class="name" id="focusOnClose"><span class="type-signature"></span>focusOnClose<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Gets the modal content DOM element</p>
+    <p>Gets the element that will be focused when the modal closes</p>
 </div>
 
 
@@ -414,7 +387,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line263">line 263</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line186">line 186</a>
     </li></ul></dd>
     
 
@@ -432,13 +405,13 @@
 
         
             
-<h4 class="name" id=".onClose"><span class="type-signature">(static) </span>onClose<span class="type-signature"></span></h4>
+<h4 class="name" id="focusOnClose"><span class="type-signature"></span>focusOnClose<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Sets a callback to run when the modal closes</p>
+    <p>Sets the element that will be focused when the modal closes</p>
 </div>
 
 
@@ -476,7 +449,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line233">line 233</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line195">line 195</a>
     </li></ul></dd>
     
 
@@ -494,13 +467,13 @@
 
         
             
-<h4 class="name" id=".onOpen"><span class="type-signature">(static) </span>onOpen<span class="type-signature"></span></h4>
+<h4 class="name" id="onClose"><span class="type-signature"></span>onClose<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>Sets a callback to run when the modal opens</p>
+    <p>Get the function that is called when the modal closes</p>
 </div>
 
 
@@ -538,7 +511,317 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line217">line 217</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line230">line 230</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="onClose"><span class="type-signature"></span>onClose<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Sets the function that is called when the modal closes</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line239">line 239</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="onOpen"><span class="type-signature"></span>onOpen<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Gets the function that is called when the modal opens</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line211">line 211</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="onOpen"><span class="type-signature"></span>onOpen<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Sets the function that is called when the modal opens</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line220">line 220</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="optionalClass"><span class="type-signature"></span>optionalClass<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Sets an optional class name on the modal for custom styling</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line249">line 249</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="optionalClass"><span class="type-signature"></span>optionalClass<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Gets the optional class name</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line260">line 260</a>
     </li></ul></dd>
     
 
@@ -566,7 +849,7 @@
     
 
     
-    <h4 class="name" id=".close"><span class="type-signature">(static) </span>close<span class="signature">()</span><span class="type-signature"> &rarr; {Class}</span></h4>
+    <h4 class="name" id="close"><span class="type-signature"></span>close<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -644,28 +927,6 @@ and shifts user focus back to triggering element, if specified.</p>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Modal instance.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Class</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -677,7 +938,7 @@ and shifts user focus back to triggering element, if specified.</p>
     
 
     
-    <h4 class="name" id=".focusFirstElement"><span class="type-signature">(static) </span>focusFirstElement<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="focusFirstElement"><span class="type-signature"></span>focusFirstElement<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -685,7 +946,7 @@ and shifts user focus back to triggering element, if specified.</p>
 
 
 <div class="description">
-    <p>Shifts focus to the very beginning of the modal element—just before the close button.</p>
+    <p>Shifts focus to the first element inside the content</p>
 </div>
 
 
@@ -729,7 +990,7 @@ and shifts user focus back to triggering element, if specified.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line247">line 247</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line151">line 151</a>
     </li></ul></dd>
     
 
@@ -765,7 +1026,95 @@ and shifts user focus back to triggering element, if specified.</p>
     
 
     
-    <h4 class="name" id=".open"><span class="type-signature">(static) </span>open<span class="signature">(content, optionalClass, focusOnClose<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Class}</span></h4>
+    <h4 class="name" id="focusLastElement"><span class="type-signature"></span>focusLastElement<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Shifts focus to the last element inside the content</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line167">line 167</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="open"><span class="type-signature"></span>open<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -784,132 +1133,6 @@ and shifts user focus back to triggering element, if specified.</p>
 
 
 
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>content</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-|
-
-<span class="param-type">HTMLElement</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>String or DOMNode to be added as the modal content.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>optionalClass</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Optional CSS class to add to the modal element.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>focusOnClose</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">HTMLElement</span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
 
 
 
@@ -943,7 +1166,7 @@ and shifts user focus back to triggering element, if specified.</p>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line162">line 162</a>
+        <a href="wtc-modal-view.js.html">wtc-modal-view.js</a>, <a href="wtc-modal-view.js.html#line120">line 120</a>
     </li></ul></dd>
     
 
@@ -968,41 +1191,8 @@ and shifts user focus back to triggering element, if specified.</p>
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>Modal instance</p>
-</div>
 
 
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Class</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const triggerButton = document.querySelector('trigger');
-const testContent = '&lt;p>Some sample content!&lt;/p>';
-
-triggerButton.addEventListener('click', () => {
-  // Passing `this` as the third argument sets our trigger as the focused item once the Modal closes.
-  myModal.open(testContent, 'test-modal-class', this);
-});</code></pre>
 
 
 
@@ -1028,7 +1218,7 @@ triggerButton.addEventListener('click', () => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Mon Sep 09 2019 15:21:51 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Feb 28 2020 14:54:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

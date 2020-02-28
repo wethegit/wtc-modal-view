@@ -1,6 +1,6 @@
 {
   "name": "wtc-modal-view",
-  "version": "1.2.5",
+  "version": "2.0.0",
   "description": "A simple, unopinionated modal class.",
   "homepage": "https://github.com/wethegit/wtc-modal-view#readme",
   "author": "Marlon Marcello <marlon@wethecollective.com> (http://wethecollective.com)",
@@ -27,8 +27,8 @@
     "minify-js": "npx uglifyjs build/wtc-modal-view.js --compress --output dist/wtc-modal-view.min.js",
     "minify-css": "npx postcss build/wtc-modal-view.css --no-map --use autoprefixer -d dist/",
     "build": "npm run prebuild-js && npm rum prebuild-css",
-    "prepare": "npm run build && npx webpack --config webpack.config.js && npm run minify-js && npm run minify-css",
-    "document": "./node_modules/.bin/jsdoc -c jsdoc.json && ./node_modules/doxdox/bin/doxdox src/wtc-modal-view.js  --layout markdown --output README.md"
+    "prepare": "npm run build && npx webpack --config webpack.config.js && npm run minify-js && npm run minify-css && npm run document",
+    "document": "npx jsdoc -c jsdoc.json && npx doxdox src/wtc-modal-view.js  --layout markdown --output README.md"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.0",

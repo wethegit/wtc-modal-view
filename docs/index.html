@@ -43,35 +43,199 @@
 
 
     <section>
-        <article><h1><a href="https://github.com/wethegit/wtc-modal-view#readme">wtc-modal-view</a> <em>1.2.4</em></h1>
+        <article><h1><a href="https://github.com/wethegit/wtc-modal-view#readme">wtc-modal-view</a> <em>2.0.0</em></h1>
 <blockquote>
 <p>A simple, unopinionated modal class.</p>
 </blockquote>
 <h3>src/wtc-modal-view.js</h3>
 <h4>new Modal()</h4>
 <p>A Modal class which can display programatically-generated content, or pull in content from an existing DOM node.</p>
-<h5>Returns</h5>
-<ul>
-<li><code>Void</code></li>
-</ul>
-<h4>Modal.constructor()</h4>
-<p>Creates base DOM element.</p>
 <h5>Examples</h5>
-<pre class="prettyprint source lang-javascript"><code>const Modal = new Modal();
+<pre class="prettyprint source lang-javascript"><code>const myModal = new Modal();
+const triggerButton = document.querySelector('trigger');
+
+myModal.optionalClass = &quot;modal--myModal&quot;;
+myModal.content = '&lt;p>Some sample content!&lt;/p>';
+myModal.focusOnClose = triggerButton;
+
+triggerButton.addEventListener('click', () => {
+  myModal.open();
+});
 </code></pre>
 <h5>Returns</h5>
 <ul>
-<li><code>Class</code>  The Modal instance</li>
+<li><code>Void</code></li>
 </ul>
 <h4>Modal.close()</h4>
 <p>Closes modal, removes content and optional class,
 and shifts user focus back to triggering element, if specified.</p>
 <h5>Returns</h5>
 <ul>
-<li><code>Class</code>  Modal instance.</li>
+<li><code>Void</code></li>
 </ul>
-<h4>open(content, optionalClass[, focusOnClose])</h4>
+<h4>open()</h4>
 <p>Opens modal, adds content and optional CSS class</p>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>focusFirstElement()</h4>
+<p>Shifts focus to the first element inside the content</p>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>focusLastElement()</h4>
+<p>Shifts focus to the last element inside the content</p>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>focusOnClose()</h4>
+<p>Gets the element that will be focused when the modal closes</p>
+<h5>Returns</h5>
+<ul>
+<li><code>HTMLElement</code></li>
+</ul>
+<h4>focusOnClose(element)</h4>
+<p>Sets the element that will be focused when the modal closes</p>
+<h5>Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>element</td>
+<td><code>HTMLElement</code></td>
+<td>Must be a focusable element</td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>onOpen()</h4>
+<p>Gets the function that is called when the modal opens</p>
+<h5>Returns</h5>
+<ul>
+<li><code>Function</code></li>
+</ul>
+<h4>onOpen(callback)</h4>
+<p>Sets the function that is called when the modal opens</p>
+<h5>Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><code>Function</code></td>
+<td></td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>onClose()</h4>
+<p>Get the function that is called when the modal closes</p>
+<h5>Returns</h5>
+<ul>
+<li><code>Function</code></li>
+</ul>
+<h4>onClose(callback)</h4>
+<p>Sets the function that is called when the modal closes</p>
+<h5>Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>callback</td>
+<td><code>Function</code></td>
+<td></td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>optionalClass(className)</h4>
+<p>Sets an optional class name on the modal for custom styling</p>
+<h5>Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>className</td>
+<td><code>string</code></td>
+<td></td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>optionalClass(optionalClass)</h4>
+<p>Gets the optional class name</p>
+<h5>Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>optionalClass</td>
+<td><code>string</code></td>
+<td></td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<h5>Returns</h5>
+<ul>
+<li><code>Void</code></li>
+</ul>
+<h4>closeButtonContent(content)</h4>
+<p>Sets the content of the close button, useful for localizing</p>
 <h5>Parameters</h5>
 <table>
 <thead>
@@ -86,38 +250,36 @@ and shifts user focus back to triggering element, if specified.</p>
 <tr>
 <td>content</td>
 <td><code>string</code> <code>HTMLElement</code></td>
-<td>- String or DOMNode to be added as the modal content.</td>
+<td></td>
 <td> </td>
-</tr>
-<tr>
-<td>optionalClass</td>
-<td><code>string</code></td>
-<td>- Optional CSS class to add to the modal element.</td>
-<td> </td>
-</tr>
-<tr>
-<td>focusOnClose</td>
-<td><code>HTMLElement</code></td>
-<td>- Element which will receive focus after the modal is closed. Typically, this will be the element which triggered the modal in the first place.</td>
-<td><em>Optional</em></td>
 </tr>
 </tbody>
 </table>
-<h5>Examples</h5>
-<pre class="prettyprint source lang-javascript"><code>const triggerButton = document.querySelector('trigger');
-const testContent = '&lt;p>Some sample content!&lt;/p>';
-
-triggerButton.addEventListener('click', () => {
-  // Passing `this` as the third argument sets our trigger as the focused item once the Modal closes.
-  Modal.open(testContent, 'test-modal-class', this);
-});
-</code></pre>
 <h5>Returns</h5>
 <ul>
-<li><code>Class</code>  Modal instance</li>
+<li><code>Void</code></li>
 </ul>
-<h4>focusFirstElement()</h4>
-<p>Shifts focus to the very beginning of the modal element—just before the close button.</p>
+<h4>content(content)</h4>
+<p>Sets the content of the modal</p>
+<h5>Parameters</h5>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>content</td>
+<td><code>string</code> <code>HTMLElement</code></td>
+<td></td>
+<td> </td>
+</tr>
+</tbody>
+</table>
 <h5>Returns</h5>
 <ul>
 <li><code>Void</code></li>
@@ -139,7 +301,7 @@ triggerButton.addEventListener('click', () => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.2</a> on Mon Sep 09 2019 15:21:51 GMT-0700 (Pacific Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Fri Feb 28 2020 14:54:47 GMT-0800 (Pacific Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
