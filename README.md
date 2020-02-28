@@ -227,6 +227,29 @@ Sets an optional class name on the modal for custom styling
 
 
 
+#### optionalClass(optionalClass) 
+
+Gets the optional class name
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| optionalClass | `string`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
 #### closeButtonContent(content) 
 
 Sets the content of the close button, useful for localizing

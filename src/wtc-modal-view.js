@@ -50,11 +50,9 @@ class Modal {
     // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role
     this.modal.setAttribute("role", "dialog");
 
-    this.modalFocusStart.setAttribute("tabindex", -1);
     this.modalFocusEnd.setAttribute("tabindex", 0);
 
     // create the markup structure
-    this.modalWrapper.appendChild(this.modalFocusStart);
     this.modalWrapper.appendChild(this.modalClose);
     this.modalWrapper.appendChild(this.modalContent);
     this.modalWrapper.appendChild(this.modalFocusEnd);
@@ -77,7 +75,7 @@ class Modal {
    */
   close() {
     if (this.state) {
-      this.modal.classList.remove(this.classNameOpen);
+      this.modal.classList.remove(this.classNameOpen, this.optionalClass);
 
       // if a focusOnClose element was passed in when the modal opened, focus it!
       if (this.focusOnClose) this.focusOnClose.focus();
@@ -113,6 +111,7 @@ class Modal {
    */
   open() {
     if (!this.state) {
+      this.modal.classList.add(this.optionalClass);
       document.body.appendChild(this.modal);
 
       // This is here to avoid a flash of content for the first time
@@ -143,7 +142,7 @@ class Modal {
    * Shifts focus to the very beginning of the modal element—just before the close button.
    */
   focusFirstElement() {
-    this.modalFocusStart.focus();
+    this.modalClose.focus();
   }
 
   /**
@@ -217,8 +216,16 @@ class Modal {
   set optionalClass(className) {
     if (!className || typeof className !== "string") return;
 
-    this.modal.classList.remove(this._optionalClass);
-    this.modal.classList.add(className);
+    this._optionalClass = className;
+  }
+
+  /**
+   * Gets the optional class name
+   *
+   * @param {string} optionalClass
+   */
+  get optionalClass() {
+    return this._optionalClass || "";
   }
 
   /**

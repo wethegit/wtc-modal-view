@@ -27,7 +27,7 @@
     "minify-js": "npx uglifyjs build/wtc-modal-view.js --compress --output dist/wtc-modal-view.min.js",
     "minify-css": "npx postcss build/wtc-modal-view.css --no-map --use autoprefixer -d dist/",
     "build": "npm run prebuild-js && npm rum prebuild-css",
-    "prepare": "npm run build && npx webpack --config webpack.config.js && npm run minify-js && npm run minify-css",
+    "prepare": "npm run build && npx webpack --config webpack.config.js && npm run minify-js && npm run minify-css && npm run document",
     "document": "./node_modules/.bin/jsdoc -c jsdoc.json && ./node_modules/doxdox/bin/doxdox src/wtc-modal-view.js  --layout markdown --output README.md"
   },
   "dependencies": {
