@@ -51,8 +51,11 @@ class Modal {
     this.modal.setAttribute("role", "dialog");
 
     this.modalFocusEnd.setAttribute("tabindex", 0);
+    this.modalFocusStart.setAttribute("tabindex", 0);
+    this.modalContent.setAttribute("tabindex", -1);
 
     // create the markup structure
+    this.modalWrapper.appendChild(this.modalFocusStart);
     this.modalWrapper.appendChild(this.modalClose);
     this.modalWrapper.appendChild(this.modalContent);
     this.modalWrapper.appendChild(this.modalFocusEnd);
@@ -61,10 +64,15 @@ class Modal {
 
     document.body.appendChild(this.wrapperOfContent);
 
-    this.modalFocusEnd.addEventListener(
+    this.modalFocusEnd.addEventListener("focus", () => {
+      this.modalClose.focus();
+    });
+
+    this.modalFocusStart.addEventListener(
       "focus",
-      this.focusFirstElement.bind(this)
+      this.focusLastElement.bind(this)
     );
+
     this.modalClose.addEventListener("click", this.close.bind(this));
     this.modalOverlay.addEventListener("click", this.close.bind(this));
   }
@@ -119,11 +127,10 @@ class Modal {
       if (!this.appended) this.appended = true;
       setTimeout(() => {
         this.modal.classList.add(this.classNameOpen);
+        this.focusFirstElement();
       }, delay);
 
       this.state = true;
-
-      this.focusFirstElement();
 
       if (this.onOpen) this.onOpen();
 
@@ -139,10 +146,36 @@ class Modal {
   }
 
   /**
-   * Shifts focus to the very beginning of the modal element—just before the close button.
+   * Shifts focus to the first element inside the content
    */
   focusFirstElement() {
-    this.modalClose.focus();
+    // traverse tree down
+    const findFirst = function(parent) {
+      if (!parent.firstElementChild) return parent;
+      console.log(parent.firstElementChild);
+      return findFirst(parent.firstElementChild);
+    };
+
+    let finalElement = findFirst(this.modalContent.firstElementChild);
+    console.log(finalElement);
+    finalElement.setAttribute("tabindex", -1);
+    finalElement.focus();
+  }
+
+  /**
+   * Shifts focus to the last element inside the content
+   */
+  focusLastElement() {
+    // traverse tree down
+    const findFinal = function(parent) {
+      if (!parent.lastElementChild) return parent;
+      return findFinal(parent.lastElementChild);
+    };
+
+    let finalElement = findFinal(this.modalContent.lastElementChild);
+    console.log(finalElement);
+    finalElement.setAttribute("tabindex", -1);
+    finalElement.focus();
   }
 
   /**

@@ -73,7 +73,23 @@ Opens modal, adds content and optional CSS class
 
 #### focusFirstElement() 
 
-Shifts focus to the very beginning of the modal element—just before the close button.
+Shifts focus to the first element inside the content
+
+
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
+#### focusLastElement() 
+
+Shifts focus to the last element inside the content
 
 
 
