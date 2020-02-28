@@ -173,6 +173,8 @@ class Modal {
       const lastFocusableElement =
         focusableElements[focusableElements.length - 1];
       lastFocusableElement.focus();
+    } else {
+      this.modalClose.focus();
     }
   }
 
