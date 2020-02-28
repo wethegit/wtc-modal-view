@@ -152,12 +152,11 @@ class Modal {
     // traverse tree down
     const findFirst = function(parent) {
       if (!parent.firstElementChild) return parent;
-      console.log(parent.firstElementChild);
+
       return findFirst(parent.firstElementChild);
     };
 
     let finalElement = findFirst(this.modalContent.firstElementChild);
-    console.log(finalElement);
     finalElement.setAttribute("tabindex", -1);
     finalElement.focus();
   }
@@ -173,7 +172,6 @@ class Modal {
     };
 
     let finalElement = findFinal(this.modalContent.lastElementChild);
-    console.log(finalElement);
     finalElement.setAttribute("tabindex", -1);
     finalElement.focus();
   }
