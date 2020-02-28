@@ -165,15 +165,15 @@ class Modal {
    * Shifts focus to the last element inside the content
    */
   focusLastElement() {
-    // traverse tree down
-    const findFinal = function(parent) {
-      if (!parent.lastElementChild) return parent;
-      return findFinal(parent.lastElementChild);
-    };
+    const focusableElements = this.modalContent.querySelectorAll(
+      '[href], button, [tabindex="0"]'
+    );
 
-    let finalElement = findFinal(this.modalContent.lastElementChild);
-    finalElement.setAttribute("tabindex", -1);
-    finalElement.focus();
+    if (focusableElements.length > 0) {
+      const lastFocusableElement =
+        focusableElements[focusableElements.length - 1];
+      lastFocusableElement.focus();
+    }
   }
 
   /**
