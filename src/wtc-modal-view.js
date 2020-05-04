@@ -133,9 +133,7 @@ class Modal {
       if (!this.appended) this.appended = true;
 
       // Appending the content back to the modal.
-      if (this.modalContent.children.length === 0) {
-        this.modalContent.append(this._content);
-      }
+      this.modalContent.append(this._content);
 
       // Setting the modal back to block.
       this.modal.style.display = "block";
@@ -165,7 +163,7 @@ class Modal {
    */
   focusFirstElement() {
     // traverse tree down
-    const findFirst = function (parent) {
+    const findFirst = (parent) => {
       if (!parent.firstElementChild) return parent;
 
       return findFirst(parent.firstElementChild);
@@ -181,7 +179,7 @@ class Modal {
    */
   focusLastElement() {
     const focusableElements = this.modalContent.querySelectorAll(
-      '[href], button, [tabindex="0"]'
+      '[href], button, [tabindex="0"], [role="button"]'
     );
 
     if (focusableElements.length > 0) {
