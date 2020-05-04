@@ -91,6 +91,12 @@ class Modal {
       // This gives us time to animate and transition
       setTimeout(() => {
         this.state = false;
+        // Setting the modal to display: none; when closed, just to prevent anything from still being
+        // focussable. Mainly the close button.
+        this.modal.style.display = "none";
+        // On close, we taken the content from the modal and apply it to our static modal wrapper.
+        // This prevents the content from stil being tabbable in the DOM.
+        this.wrapperOfContent.appendChild(this._content);
       }, 500);
 
       if (Modal.hash)
@@ -125,6 +131,15 @@ class Modal {
       // This is here to avoid a flash of content for the first time
       let delay = this.appended ? 0 : 100;
       if (!this.appended) this.appended = true;
+
+      // Appending the content back to the modal.
+      if (this.modalContent.children.length === 0) {
+        this.modalContent.append(this._content);
+      }
+
+      // Setting the modal back to block.
+      this.modal.style.display = "block";
+
       setTimeout(() => {
         this.modal.classList.add(this.classNameOpen);
         this.focusFirstElement();
@@ -134,7 +149,7 @@ class Modal {
 
       if (this.onOpen) this.onOpen();
 
-      const onKeyDown = e => {
+      const onKeyDown = (e) => {
         if (e.keyCode == 27) {
           this.close();
           document.removeEventListener("keydown", onKeyDown.bind(this), false);
@@ -150,7 +165,7 @@ class Modal {
    */
   focusFirstElement() {
     // traverse tree down
-    const findFirst = function(parent) {
+    const findFirst = function (parent) {
       if (!parent.firstElementChild) return parent;
 
       return findFirst(parent.firstElementChild);
