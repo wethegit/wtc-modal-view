@@ -88,7 +88,7 @@ class Modal {
       if (this.optionalClass) {
         if (typeof this.optionalClass === "string")
           this.modal.classList.remove(this.optionalClass);
-        else if (typeof this.optionalClass === "object")
+        else if (this.optionalClass instanceof Array)
           this.modal.classList.remove(...this.optionalClass);
       }
 
@@ -136,7 +136,7 @@ class Modal {
       if (this.optionalClass) {
         if (typeof this.optionalClass === "string")
           this.modal.classList.add(this.optionalClass);
-        else if (typeof this.optionalClass === "object")
+        else if (this.optionalClass instanceof Array)
           this.modal.classList.add(...this.optionalClass);
       }
 
