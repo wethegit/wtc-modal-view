@@ -83,7 +83,14 @@ class Modal {
    */
   close() {
     if (this.state) {
-      this.modal.classList.remove(this.classNameOpen, this.optionalClass);
+      this.modal.classList.remove(this.classNameOpen);
+
+      if (this.optionalClass) {
+        if (typeof this.optionalClass === "string")
+          this.modal.classList.remove(this.optionalClass);
+        else if (typeof this.optionalClass === "object")
+          this.modal.classList.remove(...this.optionalClass);
+      }
 
       // if a focusOnClose element was passed in when the modal opened, focus it!
       if (this.focusOnClose) this.focusOnClose.focus();
@@ -96,7 +103,8 @@ class Modal {
         this.modal.style.display = "none";
         // On close, we taken the content from the modal and apply it to our static modal wrapper.
         // This prevents the content from stil being tabbable in the DOM.
-        this.wrapperOfContent.appendChild(this._content);
+        if (this.storeContent) this.wrapperOfContent.appendChild(this._content);
+        else this.modalContent.innerHTML = "";
       }, 500);
 
       if (Modal.hash)
@@ -125,7 +133,13 @@ class Modal {
    */
   open() {
     if (!this.state) {
-      this.modal.classList.add(this.optionalClass);
+      if (this.optionalClass) {
+        if (typeof this.optionalClass === "string")
+          this.modal.classList.add(this.optionalClass);
+        else if (typeof this.optionalClass === "object")
+          this.modal.classList.add(...this.optionalClass);
+      }
+
       document.body.appendChild(this.modal);
 
       // This is here to avoid a flash of content for the first time
@@ -260,7 +274,7 @@ class Modal {
    * @param {string} className
    */
   set optionalClass(className) {
-    if (!className || typeof className !== "string") return;
+    if (!className) return;
 
     this._optionalClass = className;
   }
