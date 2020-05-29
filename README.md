@@ -231,7 +231,7 @@ Sets an optional class name on the modal for custom styling
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| className | `string`  |  | &nbsp; |
+| className | `String` `Array`  |  | &nbsp; |
 
 
 
@@ -243,26 +243,19 @@ Sets an optional class name on the modal for custom styling
 
 
 
-#### optionalClass(optionalClass) 
+#### optionalClass() 
 
 Gets the optional class name
 
 
 
 
-##### Parameters
-
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| optionalClass | `string`  |  | &nbsp; |
-
-
 
 
 ##### Returns
 
 
-- `Void`
+- `String` `Array`  optionalClass
 
 
 
