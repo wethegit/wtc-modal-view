@@ -271,7 +271,7 @@ class Modal {
   /**
    * Sets an optional class name on the modal for custom styling
    *
-   * @param {string} className
+   * @param {String|Array} className
    */
   set optionalClass(className) {
     if (!className) return;
@@ -282,7 +282,7 @@ class Modal {
   /**
    * Gets the optional class name
    *
-   * @param {string} optionalClass
+   * @return {String|Array} optionalClass
    */
   get optionalClass() {
     return this._optionalClass || "";
