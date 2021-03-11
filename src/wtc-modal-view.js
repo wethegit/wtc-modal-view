@@ -215,8 +215,8 @@ class Modal {
   }
 
   /**
-   * Sets the element that will be focused when the modal closes
-   * Setter. Usage: `focusOnClose = myElement`
+   * Sets the element that will be focused when the modal closes.  
+   * Setter. Usage: `modalInstance.focusOnClose = myElement`
    *
    * @param {HTMLElement} element Must be a focusable element
    */
@@ -241,8 +241,8 @@ class Modal {
   }
 
   /**
-   * Sets the function that is called when the modal opens
-   * Setter. Usage: `onOpen = myFunction`
+   * Sets the function that is called when the modal opens.  
+   * Setter. Usage: `modalInstance.onOpen = myFunction`
    * 
    * @param {Function} callback
    */
@@ -261,8 +261,8 @@ class Modal {
   }
 
   /**
-   * Sets the function that is called when the modal closes
-   * Setter. Usage: `onClose = myFunction`
+   * Sets the function that is called when the modal closes.  
+   * Setter. Usage: `modalInstance.onClose = myFunction`
    *
    * @param {Function} callback
    */
@@ -272,8 +272,8 @@ class Modal {
   }
 
   /**
-   * Sets an optional class name on the modal for custom styling
-   * Setter. Usage: `optionalClass = "modal--myclass"`
+   * Sets an optional class name on the modal for custom styling.  
+   * Setter. Usage: `modalInstance.optionalClass = "modal--myclass"`
    *
    * @param {String|Array} className
    */
@@ -293,8 +293,8 @@ class Modal {
   }
 
   /**
-   * Sets the content of the close button, useful for localizing
-   * Setter. Usage: `closeButtonContent = "<String of HTML!>"`
+   * Sets the content of the close button, useful for localizing.  
+   * Setter. Usage: `modalInstance.closeButtonContent = "<String of HTML!>"`
    *
    * @param {string|HTMLElement} content
    */
@@ -314,8 +314,8 @@ class Modal {
   }
 
   /**
-   * Sets the content of the modal
-   * Setter. Usage: `content = MyHTMLElement`
+   * Sets the content of the modal.  
+   * Setter. Usage: `modalInstance.content = MyHTMLElement`
    *
    * @param {string|HTMLElement} content
    */
