@@ -122,6 +122,7 @@ Gets the element that will be focused when the modal closes
 #### focusOnClose(element) 
 
 Sets the element that will be focused when the modal closes
+Setter. Usage: `focusOnClose = myElement`
 
 
 
@@ -161,6 +162,7 @@ Gets the function that is called when the modal opens
 #### onOpen(callback) 
 
 Sets the function that is called when the modal opens
+Setter. Usage: `onOpen = myFunction`
 
 
 
@@ -200,6 +202,7 @@ Get the function that is called when the modal closes
 #### onClose(callback) 
 
 Sets the function that is called when the modal closes
+Setter. Usage: `onClose = myFunction`
 
 
 
@@ -223,6 +226,7 @@ Sets the function that is called when the modal closes
 #### optionalClass(className) 
 
 Sets an optional class name on the modal for custom styling
+Setter. Usage: `optionalClass = "modal--myclass"`
 
 
 
@@ -262,6 +266,7 @@ Gets the optional class name
 #### closeButtonContent(content) 
 
 Sets the content of the close button, useful for localizing
+Setter. Usage: `closeButtonContent = "<String of HTML!>"`
 
 
 
@@ -285,6 +290,7 @@ Sets the content of the close button, useful for localizing
 #### content(content) 
 
 Sets the content of the modal
+Setter. Usage: `content = MyHTMLElement`
 
 
 
