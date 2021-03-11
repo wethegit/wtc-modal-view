@@ -121,7 +121,8 @@ Gets the element that will be focused when the modal closes
 
 #### focusOnClose(element) 
 
-Sets the element that will be focused when the modal closes
+Sets the element that will be focused when the modal closes.  
+Setter. Usage: `modalInstance.focusOnClose = myElement`
 
 
 
@@ -160,7 +161,8 @@ Gets the function that is called when the modal opens
 
 #### onOpen(callback) 
 
-Sets the function that is called when the modal opens
+Sets the function that is called when the modal opens.  
+Setter. Usage: `modalInstance.onOpen = myFunction`
 
 
 
@@ -199,7 +201,8 @@ Get the function that is called when the modal closes
 
 #### onClose(callback) 
 
-Sets the function that is called when the modal closes
+Sets the function that is called when the modal closes.  
+Setter. Usage: `modalInstance.onClose = myFunction`
 
 
 
@@ -222,7 +225,8 @@ Sets the function that is called when the modal closes
 
 #### optionalClass(className) 
 
-Sets an optional class name on the modal for custom styling
+Sets an optional class name on the modal for custom styling.  
+Setter. Usage: `modalInstance.optionalClass = "modal--myclass"`
 
 
 
@@ -261,7 +265,8 @@ Gets the optional class name
 
 #### closeButtonContent(content) 
 
-Sets the content of the close button, useful for localizing
+Sets the content of the close button, useful for localizing.  
+Setter. Usage: `modalInstance.closeButtonContent = "<String of HTML!>"`
 
 
 
@@ -284,7 +289,8 @@ Sets the content of the close button, useful for localizing
 
 #### content(content) 
 
-Sets the content of the modal
+Sets the content of the modal.  
+Setter. Usage: `modalInstance.content = MyHTMLElement`
 
 
 
