@@ -3,7 +3,7 @@
 }
 
 .modal {
-  --fade-duration: 0.4s;
+  --in-out-duration: 0.4s;
     
   display: block;
   height: 100%;
@@ -12,7 +12,7 @@
   pointer-events: none;
   position: fixed;
   top: 0;
-  transition: opacity 0s linear var(--fade-duration);
+  transition: opacity 0s linear var(--in-out-duration);
   width: 100%;
 }
 
@@ -33,7 +33,7 @@
   height: 100%;
   opacity: 0;
   position: absolute;
-  transition: opacity var(--fade-duration) ease;
+  transition: opacity var(--in-out-duration) ease;
   width: 100%;
 }
 
@@ -53,13 +53,13 @@
   display: block;
   margin: 0 0 10px auto;
   opacity: 0;
-  transition: opacity var(--fade-duration) ease;
+  transition: opacity var(--in-out-duration) ease;
 }
 
 .modal__content {
   background: white;
   opacity: 0;
-  transition: opacity var(--fade-duration) ease;
+  transition: opacity var(--in-out-duration) ease;
 }
 
 .modal__focus-start,

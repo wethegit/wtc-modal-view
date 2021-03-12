@@ -29,6 +29,7 @@ class Modal {
     this.classNameOpen = "modal--open";
     this.appended = false;
     this.storeContent = false;
+    this.inOutDuration = 400;
 
     // getters and setters variables
     this._onOpen = null;
@@ -110,7 +111,7 @@ class Modal {
         // This prevents the content from stil being tabbable in the DOM.
         if (this.storeContent) this.wrapperOfContent.appendChild(this._content);
         else this.modalContent.innerHTML = "";
-      }, 500);
+      }, this.inOutDuration);
 
       if (Modal.hash)
         history.replaceState("", document.title, window.location.pathname);
