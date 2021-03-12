@@ -85,13 +85,6 @@ class Modal {
     if (this.state) {
       this.modal.classList.remove(this.classNameOpen);
 
-      if (this.optionalClass) {
-        if (typeof this.optionalClass === "string")
-          this.modal.classList.remove(this.optionalClass);
-        else if (this.optionalClass instanceof Array)
-          this.modal.classList.remove(...this.optionalClass);
-      }
-
       // if a focusOnClose element was passed in when the modal opened, focus it!
       if (this.focusOnClose) this.focusOnClose.focus();
 
@@ -101,7 +94,19 @@ class Modal {
         // Setting the modal to display: none; when closed, just to prevent anything from still being
         // focussable. Mainly the close button.
         this.modal.style.display = "none";
-        // On close, we taken the content from the modal and apply it to our static modal wrapper.
+
+        // We only remove the optional classNames when the timeout is complete,
+        // and everything is "gone" from view.
+        // This way, we're able to target our various custom modals in CSS,
+        // via their specific classNames (i.e. ".modal--video", ".modal--video.modal--open"):
+        if (this.optionalClass) {
+          if (typeof this.optionalClass === "string")
+            this.modal.classList.remove(this.optionalClass);
+          else if (this.optionalClass instanceof Array)
+            this.modal.classList.remove(...this.optionalClass);
+        }
+
+        // On close, we take the content from the modal and apply it to our static modal wrapper.
         // This prevents the content from stil being tabbable in the DOM.
         if (this.storeContent) this.wrapperOfContent.appendChild(this._content);
         else this.modalContent.innerHTML = "";
