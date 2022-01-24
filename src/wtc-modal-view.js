@@ -95,7 +95,6 @@ class Modal {
         })
       }
       else {
-        console.log('onCloseStart not set, so just finishing up')
         this._completeClose()
       }
     }
@@ -104,7 +103,6 @@ class Modal {
   _completeClose() {
     if (this.state) {
 
-      console.log('onCompleteClose')
       this.modal.classList.remove(this.classNameOpen);
 
       // if a focusOnClose element was passed in when the modal opened, focus it!
