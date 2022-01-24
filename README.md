@@ -223,6 +223,57 @@ Setter. Usage: `modalInstance.onClose = myFunction`
 
 
 
+#### onCloseStart() 
+
+Get the function that is called just before the modal closes
+
+
+
+
+
+
+##### Returns
+
+
+- `Function`  
+
+
+
+#### onCloseStart(callback) 
+
+Sets the function that is called just before the modal closes.
+If this is set, when modalInstance.close()` is called it will
+run the set function with a callback. It will then wait for
+that callback to be run before completing the close function and
+calling onClose.
+Setter. Usage: 
+`modalInstance.onClose = (cb) => {
+  // do some animation
+  cb();  
+}
+
+modalInstance.close();
+`
+
+
+
+
+##### Parameters
+
+| Name | Type | Description |  |
+| ---- | ---- | ----------- | -------- |
+| callback | `Function`  |  | &nbsp; |
+
+
+
+
+##### Returns
+
+
+- `Void`
+
+
+
 #### optionalClass(className) 
 
 Sets an optional class name on the modal for custom styling.  
