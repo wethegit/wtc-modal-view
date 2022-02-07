@@ -34,6 +34,7 @@ class Modal {
     // getters and setters variables
     this._onOpen = null;
     this._onClose = null;
+    this._onCloseStart = null;
     this._focusOnClose = null;
     this._content = null;
 
@@ -79,11 +80,29 @@ class Modal {
   }
 
   /**
-   * Closes modal, removes content and optional class,
+   * Closes modal.
+   * 
+   * If `onCloseStart`is defined that is called and waits for the callback.
+   * Otherwise it removes content and optional class,
    * and shifts user focus back to triggering element, if specified.
+   * 
    */
   close() {
     if (this.state) {
+      if(this._onCloseStart) {
+        this._onCloseStart(this.modal, () => {
+          this._completeClose()
+        })
+      }
+      else {
+        this._completeClose()
+      }
+    }
+  }
+
+  _completeClose() {
+    if (this.state) {
+
       this.modal.classList.remove(this.classNameOpen);
 
       // if a focusOnClose element was passed in when the modal opened, focus it!
@@ -111,12 +130,13 @@ class Modal {
         // This prevents the content from stil being tabbable in the DOM.
         if (this.storeContent) this.wrapperOfContent.appendChild(this._content);
         else this.modalContent.innerHTML = "";
+
+        if (this.onClose) this.onClose();
       }, this.inOutDuration);
 
       if (Modal.hash)
         history.replaceState("", document.title, window.location.pathname);
 
-      if (this.onClose) this.onClose();
     }
   }
 
@@ -161,11 +181,12 @@ class Modal {
       setTimeout(() => {
         this.modal.classList.add(this.classNameOpen);
         this.focusFirstElement();
+        if (this.onOpen) this.onOpen(this.modal);
       }, delay);
 
       this.state = true;
 
-      if (this.onOpen) this.onOpen();
+      
 
       const onKeyDown = (e) => {
         if (e.keyCode == 27) {
@@ -247,8 +268,9 @@ class Modal {
   }
 
   /**
-   * Sets the function that is called when the modal opens.  
-   * Setter. Usage: `modalInstance.onOpen = myFunction`
+   * Sets the function that is called when the modal opens. 
+   * The function gets called with the modals DOM element. 
+   * Setter. Usage: `modalInstance.onOpen = (modalElement) => {}`
    * 
    * @param {Function} callback
    */
@@ -275,6 +297,38 @@ class Modal {
   set onClose(callback) {
     if (!callback || typeof callback !== "function") return;
     this._onClose = callback;
+  }
+
+  /**
+   * Get the function that is called just before the modal closes
+   *
+   * @return {Function}
+   */
+  get onCloseStart() {
+    return this._onCloseStart;
+  }
+
+  /**
+   * Sets the function that is called just before the modal closes.
+   * If this is set, when modalInstance.close()` is called it will
+   * run the set function with a the modal DOM element and a callback. 
+   * It will then wait for that callback to be run before completing 
+   * the close function and calling onClose.
+   * 
+   * Setter. Usage: 
+   * `modalInstance.onCloseStart = (modalElement, cb) => {
+   *   // do some animation with modalElement
+   *   cb();  
+   * }
+   * 
+   * modalInstance.close();
+   * `
+   *
+   * @param {Function} callback
+   */
+  set onCloseStart(callback) {
+    if (!callback || typeof callback !== "function") return;
+    this._onCloseStart = callback;
   }
 
   /**
