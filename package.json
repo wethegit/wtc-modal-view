@@ -34,7 +34,7 @@
   "devDependencies": {
     "doxdox": "^3.0.0",
     "jsdoc": "^3.6.4",
-    "microbundle": "^0.12.0",
+    "microbundle": "^0.15.1",
     "node-sass": "^7.0.0"
   }
 }
